@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Node ts url shortener",
   "scripts": {
-    "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write .",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "jest": "^30.0.5",
+    "prettier": "^3.6.2",
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
