@@ -1,0 +1,28 @@
+{
+  "name": "node-ts-url-shortener",
+  "version": "1.0.0",
+  "description": "Node ts url shortener",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristiancosta/node-ts-url-shortener.git"
+  },
+  "keywords": [
+    "node",
+    "ts",
+    "url",
+    "shortener"
+  ],
+  "author": "Cristian Costa <cristiancosta1991@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cristiancosta/node-ts-jwt/issues"
+  },
+  "homepage": "https://github.com/cristiancosta/node-ts-jwt#readme",
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
