@@ -7,6 +7,7 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "prepare": "husky",
     "build": "tsc"
   },
   "repository": {
@@ -30,11 +31,19 @@
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
     "eslint": "^9.32.0",
+    "husky": "^9.1.7",
     "jest": "^30.0.5",
+    "lint-staged": "^16.1.4",
     "prettier": "^3.6.2",
     "ts-jest": "^29.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.39.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint .",
+      "prettier --write ."
+    ]
   }
 }
