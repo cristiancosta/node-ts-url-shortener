@@ -10,9 +10,9 @@ import { createDataSource } from './data-source';
 const { db } = configuration;
 createDataSource(db)
   .initialize()
-  .then(() => {
+  .then((dataSource) => {
     const { port } = configuration.server;
-    createExpressApp().listen(port, () =>
+    createExpressApp(dataSource).listen(port, () =>
       console.log(`Server running on port ${port}`)
     );
     console.log('Server connected to database');

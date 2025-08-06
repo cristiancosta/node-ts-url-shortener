@@ -1,13 +1,17 @@
-import express, { Express, Request, Response } from 'express';
+import { DataSource } from 'typeorm';
 import swaggerUi from 'swagger-ui-express';
+import express, { Express } from 'express';
 
 // Middlewares.
 import { swaggerBasicAuth } from './middlewares/swagger-basic-auth';
 
+// Routes.
+import { routes } from './routes';
+
 // Swagger.
 import { swaggerDoc } from './swagger';
 
-export const createExpressApp = (): Express => {
+export const createExpressApp = (dataSource: DataSource): Express => {
   const app = express();
 
   app.use(
@@ -16,7 +20,7 @@ export const createExpressApp = (): Express => {
     swaggerUi.serve,
     swaggerUi.setup(swaggerDoc)
   );
-  app.get('/', (req: Request, res: Response) => res.send({ message: 'Hello' }));
+  app.use('/', routes(dataSource));
 
   return app;
 };
