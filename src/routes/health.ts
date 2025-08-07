@@ -25,7 +25,7 @@ export const healthRoutes = (dataSource: DataSource): Router => {
    *            schema:
    *              $ref: '#/components/schemas/GetHealthInfoResponse'
    */
-  router.use('/', controller.getHealthInfo);
+  router.get('/', controller.getHealthInfo);
 
   return router;
 };
