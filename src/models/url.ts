@@ -18,13 +18,6 @@ export class Url {
     type: 'varchar',
     nullable: false
   })
-  short_url!: string;
-
-  @Column({
-    unique: true,
-    type: 'varchar',
-    nullable: false
-  })
   long_url!: string;
 
   @CreateDateColumn()

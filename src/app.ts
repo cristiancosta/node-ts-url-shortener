@@ -14,6 +14,7 @@ import { swaggerDoc } from './swagger';
 export const createExpressApp = (dataSource: DataSource): Express => {
   const app = express();
 
+  app.use(express.json());
   app.use(
     '/api-docs',
     swaggerBasicAuth,

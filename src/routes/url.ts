@@ -9,7 +9,8 @@ export const urlRoutes = (dataSource: DataSource): Router => {
 
   const controller = urlController(dataSource);
 
-  router.post('/', controller.shortenUrl);
+  router.post('/shorten', controller.shortenUrl);
+  router.get('/:encodedId', controller.redirectToLongUrl);
 
   return router;
 };

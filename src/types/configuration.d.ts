@@ -13,6 +13,7 @@ export type DataSourceConfiguration = {
 };
 
 export type ServerConfiguration = {
+  host: string;
   port: number;
 };
 

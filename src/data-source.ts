@@ -1,6 +1,9 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
+// Models.
+import { Url } from './models/url';
+
 // Types.
 import { DataSourceConfiguration } from './types/configuration';
 
@@ -15,7 +18,7 @@ export const createDataSource = (
     username,
     password,
     database,
-    entities: [],
+    entities: [Url],
     synchronize: true,
     logging: false
   });

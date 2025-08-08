@@ -13,6 +13,7 @@ export const configuration: AppConfiguration = {
     database: process.env.DB_NAME || 'nodeurlshortener'
   },
   server: {
+    host: process.env.SERVER_HOST || 'localhost',
     port: parseInt(process.env.SERVER_PORT ?? '8080', 10)
   },
   swagger: {

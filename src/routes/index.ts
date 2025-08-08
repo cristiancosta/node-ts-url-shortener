@@ -9,7 +9,7 @@ export const routes = (dataSource: DataSource): Router => {
   const router = Router();
 
   router.use('/health', healthRoutes(dataSource));
-  router.use('/url', urlRoutes(dataSource));
+  router.use('/', urlRoutes(dataSource));
 
   return router;
 };

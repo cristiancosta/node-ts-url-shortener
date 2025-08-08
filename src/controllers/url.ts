@@ -19,7 +19,17 @@ export const urlController = (dataSource: DataSource): UrlController => {
     res.send(result);
   };
 
+  const redirectToLongUrl = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    const { encodedId } = req.params as { encodedId: string };
+    const result = await service.getUrlByEncodedId(encodedId);
+    res.redirect(result.longUrl);
+  };
+
   return {
-    shortenUrl
+    shortenUrl,
+    redirectToLongUrl
   };
 };
