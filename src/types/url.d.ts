@@ -1,36 +1,34 @@
 import { Request, Response } from 'express';
 
 export type UrlRepository = {
-  getUrlById: (id: number) => Promise<UrlDto | null>;
-  getUrlByLongUrl: (longUrl: string) => Promise<UrlDto | null>;
+  getById: (id: number) => Promise<UrlDto | null>;
+  getByUrl: (url: string) => Promise<UrlDto | null>;
   createUrl: (dto: CreateUrlDto) => Promise<UrlDto>;
 };
 
 export type UrlService = {
-  shortenUrl: (
-    shortenUrlDto: ShortenUrlInputDto
-  ) => Promise<ShortenUrlOutputDto>;
+  shortenUrl: (dto: ShortenUrlInputDto) => Promise<ShortenUrlOutputDto>;
   getUrlByEncodedId: (encodedId: string) => Promise<UrlDto>;
 };
 
 export type UrlController = {
   shortenUrl: (req: Request, res: Response) => Promise<void>;
-  redirectToLongUrl: (req: Request, res: Response) => Promise<void>;
+  redirectToUrl: (req: Request, res: Response) => Promise<void>;
 };
 
 export type UrlDto = {
   id: number;
-  longUrl: string;
+  url: string;
   createdAt: Date;
   updatedAt: Date;
 };
 
 export type CreateUrlDto = {
-  longUrl: string;
+  url: string;
 };
 
 export type ShortenUrlInputDto = {
-  longUrl: string;
+  url: string;
 };
 
 export type ShortenUrlOutputDto = {

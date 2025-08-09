@@ -1,5 +1,8 @@
 import { DataSource } from 'typeorm';
 
+// Errors.
+import { InternalServerError } from '../errors/internal-server';
+
 // Models.
 import { Url } from '../models/url';
 
@@ -9,45 +12,45 @@ import { CreateUrlDto, UrlDto, UrlRepository } from '../types/url';
 export const urlRepository = (dataSource: DataSource): UrlRepository => {
   const repository = dataSource.getRepository(Url);
 
-  const getUrlById = async (id: number): Promise<UrlDto | null> => {
+  const getById = async (id: number): Promise<UrlDto | null> => {
     try {
       const urlEntity = await repository.findOne({ where: { id } });
       const result = urlEntity ? mapUrlEntityToUrlDto(urlEntity) : null;
       return result;
     } catch (error) {
-      console.error('getUrlById#error', error);
-      throw new Error('URL_RETRIEVAL_FAILURE');
+      console.error('getById#error', error);
+      throw new InternalServerError('URL_RETRIEVAL_FAILURE');
     }
   };
 
-  const getUrlByLongUrl = async (longUrl: string): Promise<UrlDto | null> => {
+  const getByUrl = async (url: string): Promise<UrlDto | null> => {
     try {
       const urlEntity = await repository.findOne({
-        where: { long_url: longUrl }
+        where: { url }
       });
       const result = urlEntity ? mapUrlEntityToUrlDto(urlEntity) : null;
       return result;
     } catch (error) {
-      console.error('getUrlByLongUrl#error', error);
-      throw new Error('URL_RETRIEVAL_FAILURE');
+      console.error('getByUrl#error', error);
+      throw new InternalServerError('URL_RETRIEVAL_FAILURE');
     }
   };
 
   const createUrl = async (dto: CreateUrlDto): Promise<UrlDto> => {
     try {
-      const { longUrl } = dto;
-      const urlEntity = await repository.save({ long_url: longUrl });
+      const { url } = dto;
+      const urlEntity = await repository.save({ url });
       return mapUrlEntityToUrlDto(urlEntity);
     } catch (error) {
-      console.error('getByLongUrl#error', error);
-      throw new Error('URL_RETRIEVAL_FAILURE');
+      console.error('createUrl#error', error);
+      throw new InternalServerError('URL_CREATION_FAILURE');
     }
   };
 
   const mapUrlEntityToUrlDto = (urlEntity: Url): UrlDto => {
     const urlDto: UrlDto = {
       id: urlEntity.id,
-      longUrl: urlEntity.long_url,
+      url: urlEntity.url,
       createdAt: urlEntity.created_at,
       updatedAt: urlEntity.created_at
     };
@@ -55,8 +58,8 @@ export const urlRepository = (dataSource: DataSource): UrlRepository => {
   };
 
   return {
-    getUrlByLongUrl,
+    getByUrl,
     createUrl,
-    getUrlById
+    getById
   };
 };

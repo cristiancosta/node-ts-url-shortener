@@ -14,22 +14,19 @@ export const urlController = (dataSource: DataSource): UrlController => {
   const service = urlService(urlRepository(dataSource));
 
   const shortenUrl = async (req: Request, res: Response): Promise<void> => {
-    const { longUrl } = req.body as { longUrl: string };
-    const result = await service.shortenUrl({ longUrl });
+    const { url } = req.body as { url: string };
+    const result = await service.shortenUrl({ url });
     res.send(result);
   };
 
-  const redirectToLongUrl = async (
-    req: Request,
-    res: Response
-  ): Promise<void> => {
+  const redirectToUrl = async (req: Request, res: Response): Promise<void> => {
     const { encodedId } = req.params as { encodedId: string };
     const result = await service.getUrlByEncodedId(encodedId);
-    res.redirect(result.longUrl);
+    res.redirect(result.url);
   };
 
   return {
     shortenUrl,
-    redirectToLongUrl
+    redirectToUrl
   };
 };

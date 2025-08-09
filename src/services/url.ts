@@ -1,6 +1,9 @@
 // Configuration.
 import { configuration } from '../configuration';
 
+// Errors.
+import { NotFoundError } from '../errors/not-found';
+
 // Types.
 import {
   ShortenUrlInputDto,
@@ -17,21 +20,21 @@ export const urlService = (urlRepository: UrlRepository): UrlService => {
   const { host, port } = configuration.server;
 
   const shortenUrl = async (
-    shortenUrlDto: ShortenUrlInputDto
+    dto: ShortenUrlInputDto
   ): Promise<ShortenUrlOutputDto> => {
-    const { longUrl } = shortenUrlDto;
-    let urlDto = await urlRepository.getUrlByLongUrl(longUrl);
+    const { url } = dto;
+    let urlDto = await urlRepository.getByUrl(url);
     if (urlDto) {
       return { shortUrl: `${host}:${port}/${encodeBase62(urlDto.id)}` };
     }
-    urlDto = await urlRepository.createUrl({ longUrl });
+    urlDto = await urlRepository.createUrl({ url });
     return { shortUrl: `${host}:${port}/${encodeBase62(urlDto.id)}` };
   };
 
   const getUrlByEncodedId = async (encodedId: string): Promise<UrlDto> => {
-    const urlDto = await urlRepository.getUrlById(decodeBase62(encodedId));
+    const urlDto = await urlRepository.getById(decodeBase62(encodedId));
     if (!urlDto) {
-      throw new Error();
+      throw new NotFoundError('URL_NOT_FOUND');
     }
     return urlDto;
   };

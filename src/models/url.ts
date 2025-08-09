@@ -18,7 +18,7 @@ export class Url {
     type: 'varchar',
     nullable: false
   })
-  long_url!: string;
+  url!: string;
 
   @CreateDateColumn()
   created_at!: Date;
