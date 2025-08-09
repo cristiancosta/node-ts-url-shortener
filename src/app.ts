@@ -1,8 +1,10 @@
+import 'express-async-errors';
 import { DataSource } from 'typeorm';
 import swaggerUi from 'swagger-ui-express';
 import express, { Express } from 'express';
 
 // Middlewares.
+import { errorHandler } from './middlewares/error-handler';
 import { swaggerBasicAuth } from './middlewares/swagger-basic-auth';
 
 // Routes.
@@ -22,6 +24,7 @@ export const createExpressApp = (dataSource: DataSource): Express => {
     swaggerUi.setup(swaggerDoc)
   );
   app.use('/', routes(dataSource));
+  app.use(errorHandler);
 
   return app;
 };
