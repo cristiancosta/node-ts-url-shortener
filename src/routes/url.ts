@@ -9,8 +9,93 @@ export const urlRoutes = (dataSource: DataSource): Router => {
 
   const controller = urlController(dataSource);
 
+  /**
+   * @swagger
+   * /{encodedId}:
+   *  get:
+   *    summary: Get url related to short url
+   *    description: Retrieves
+   *    tags:
+   *      - Url
+   *    responses:
+   *      302:
+   *        description: Redirection to url
+   *      404:
+   *        description: Not found
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/UrlNotFoundResponse'
+   *      500:
+   *        description: Internal server error
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/InternalServerErrorResponse'
+   */
   router.get('/:encodedId', controller.redirectToUrl);
+
+  /**
+   * @swagger
+   * /shorten:
+   *  post:
+   *    summary: Shorten url
+   *    description: Stores on database the given url and return the short url
+   *    tags:
+   *      - Url
+   *    requestBody:
+   *      content:
+   *        application/json:
+   *          schema:
+   *            type: object
+   *            properties:
+   *              url:
+   *                type: string
+   *                description: Url to be shorten
+   *                example: https://github.com/cristiancosta/node-ts-jwt
+   *            required:
+   *              - url
+   *    responses:
+   *      200:
+   *        description: Shorten url
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/ShortenUrlResponse'
+   *      500:
+   *        description: Internal server error
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/InternalServerErrorResponse'
+   */
   router.post('/shorten', controller.shortenUrl);
 
   return router;
 };
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ShortenUrlResponse:
+ *       type: object
+ *       properties:
+ *         shortUrl:
+ *           type: string
+ *           description:
+ *     UrlNotFoundResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: Error message
+ *           example: URL_NOT_FOUND
+ *     InternalServerErrorResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: Error message
+ *           example: INTERNAL_SERVER_ERROR
+ */
