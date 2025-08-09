@@ -1,3 +1,4 @@
+// Utils.
 import { encodeBase62, decodeBase62 } from '../../../src/utils/base62';
 
 describe('Base62 encoding/decoding', () => {
@@ -5,8 +6,12 @@ describe('Base62 encoding/decoding', () => {
     expect(encodeBase62(0)).toBe('0');
   });
 
-  it('Should decode "0" as 0', () => {
-    expect(decodeBase62('0')).toBe(0);
+  it('Should encode 414 as "6G"', () => {
+    expect(encodeBase62(414)).toBe('6G');
+  });
+
+  it('Should decode "6G" as 414', () => {
+    expect(decodeBase62('6G')).toBe(414);
   });
 
   it('Should encode and decode numbers consistently', () => {
