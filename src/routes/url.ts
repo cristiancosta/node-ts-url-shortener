@@ -14,9 +14,17 @@ export const urlRoutes = (dataSource: DataSource): Router => {
    * /{encodedId}:
    *  get:
    *    summary: Get url related to short url
-   *    description: Retrieves
+   *    description: Retrieves and redirects to the stored url
    *    tags:
    *      - Url
+   *    parameters:
+   *      - name: encodedId
+   *        in: path
+   *        required: true
+   *        description: Shorten url encoded identifier
+   *        schema:
+   *          type: string
+   *          example: 1
    *    responses:
    *      302:
    *        description: Redirection to url
@@ -83,7 +91,8 @@ export const urlRoutes = (dataSource: DataSource): Router => {
  *       properties:
  *         shortUrl:
  *           type: string
- *           description:
+ *           description: Shorten url
+ *           example: localhost:8888/1
  *     UrlNotFoundResponse:
  *       type: object
  *       properties:
