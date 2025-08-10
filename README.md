@@ -39,7 +39,6 @@ Features include:
 ├── .husky/
 ├── .vscode/                # Debuggers and workspace configuration.
 ├── src/
-|   ├── constants/          # HTTP codes, error messages, table/model names.
 |   ├── controllers/        # Endpoint logic.
 |   ├── errors/             # Custom error classes.
 |   ├── middlewares/        # Auth, error handling, swagger auth.
@@ -158,7 +157,7 @@ npx lint-staged  # Runs ESLint + Prettier
 
 ## ⚙️ GitHub Actions CI
 
-The project runs automated tests and perform building process on Node.js 20 and 22 via GitHub Actions.
+The project runs automated tests and perform building process on Node.js 20.x and 22.x via GitHub Actions.
 
 ---
 
