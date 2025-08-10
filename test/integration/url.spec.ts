@@ -1,6 +1,9 @@
 import request from 'supertest';
 import { Repository } from 'typeorm';
 
+// Configuration.
+import { configuration } from '../../src/configuration';
+
 // Models.
 import { Url } from '../../src/models/url';
 
@@ -51,7 +54,8 @@ describe('Url', () => {
       expect(response.body).toHaveProperty('shortUrl');
 
       const { shortUrl } = response.body as ShortenUrlOutputDto;
-      expect(shortUrl).toBe('localhost:8888/1');
+      const { host, port } = configuration.server;
+      expect(shortUrl).toBe(`${host}:${port}/1`);
     });
 
     it('Should return 200 with 2 as short url since it does not exist on database', async () => {
@@ -62,7 +66,8 @@ describe('Url', () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('shortUrl');
       const { shortUrl } = response.body as ShortenUrlOutputDto;
-      expect(shortUrl).toBe('localhost:8888/2');
+      const { host, port } = configuration.server;
+      expect(shortUrl).toBe(`${host}:${port}/2`);
 
       const dbUrl = await urlRepository.findOne({
         where: { id: Number(shortUrl.split('/')[1]) }
