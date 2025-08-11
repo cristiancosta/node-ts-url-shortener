@@ -88,10 +88,15 @@ DB_PASSWORD=root
 DB_NAME=nodeurlshortener
 DB_PORT=3306
 
-SERVER_PORT=8081
+SERVER_HOST=localhost
+SERVER_PORT=8888
 
 SWAGGER_USERNAME=admin
 SWAGGER_PASSWORD=admin
+
+CACHE_HOST=redis://localhost:6379
+CACHE_URL_PREFIX=shortUrl
+CACHE_URL_TTL_SECONDS=3600
 ```
 
 Make sure you have a MySQL database up and running. In my case, I use Docker since it's the easiest way:
