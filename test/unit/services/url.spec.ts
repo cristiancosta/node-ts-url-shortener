@@ -8,7 +8,12 @@ import { urlService } from '../../../src/services/url';
 import { encodeBase62, decodeBase62 } from '../../../src/utils/base62';
 
 // Types.
-import { UrlDto, UrlRepository, UrlService } from '../../../src/types/url';
+import {
+  UrlCache,
+  UrlDto,
+  UrlRepository,
+  UrlService
+} from '../../../src/types/url';
 
 jest.mock('../../../src/utils/base62', () => ({
   encodeBase62: jest.fn(),
@@ -27,6 +32,7 @@ const decodeBase62Mock = decodeBase62 as jest.Mock;
 describe('Url', () => {
   let service: UrlService;
   let mockRepository: jest.Mocked<UrlRepository>;
+  let mockCache: jest.Mocked<UrlCache>;
   const mockUrl: UrlDto = {
     id: 123,
     url: 'https://test.com',
@@ -41,7 +47,11 @@ describe('Url', () => {
       getByUrl: jest.fn(),
       createUrl: jest.fn()
     };
-    service = urlService(mockRepository);
+    mockCache = {
+      getUrlByEncodedId: jest.fn(),
+      setUrlToEncodedId: jest.fn()
+    };
+    service = urlService(mockRepository, mockCache);
   });
 
   describe('shortenUrl', () => {
@@ -82,7 +92,7 @@ describe('Url', () => {
 
       expect(decodeBase62Mock).toHaveBeenCalledWith('encoded123');
       expect(mockRepository.getById).toHaveBeenCalledWith(123);
-      expect(result).toBe(mockUrl);
+      expect(result).toBe(mockUrl.url);
     });
 
     it('Should throw NotFoundError if url does not exist', async () => {

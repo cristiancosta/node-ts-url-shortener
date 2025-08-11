@@ -1,9 +1,17 @@
 import { Express } from 'express';
 import { DataSource } from 'typeorm';
+import { RedisClientType } from 'redis';
 import { StartedMySqlContainer } from '@testcontainers/mysql';
+import { StartedRedisContainer } from '@testcontainers/redis';
 
 export type TestContext = {
-  container: StartedMySqlContainer;
   app: Express;
-  dataSource: DataSource;
+  database: {
+    container: StartedMySqlContainer;
+    dataSource: DataSource;
+  };
+  cache: {
+    container: StartedRedisContainer;
+    redis: RedisClientType;
+  };
 };

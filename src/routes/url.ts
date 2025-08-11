@@ -1,13 +1,17 @@
 import { Router } from 'express';
 import { DataSource } from 'typeorm';
+import { RedisClientType } from 'redis';
 
 // Controllers.
 import { urlController } from '../controllers/url';
 
-export const urlRoutes = (dataSource: DataSource): Router => {
+export const urlRoutes = (
+  dataSource: DataSource,
+  cache: RedisClientType
+): Router => {
   const router = Router();
 
-  const controller = urlController(dataSource);
+  const controller = urlController(dataSource, cache);
 
   /**
    * @swagger

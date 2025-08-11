@@ -5,6 +5,13 @@ import { AppConfiguration } from './types/configuration';
 
 config();
 export const configuration: AppConfiguration = {
+  cache: {
+    connectionUrl: process.env.CACHE_HOST || 'redis://localhost:6379',
+    url: {
+      prefix: process.env.CACHE_URL_PREFIX || 'shortUrl',
+      ttlSeconds: parseInt(process.env.CACHE_URL_TTL_SECONDS ?? '3600', 10)
+    }
+  },
   db: {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT ?? '3306', 10),

@@ -1,7 +1,16 @@
 export type AppConfiguration = {
+  cache: CacheConfiguration;
   db: DataSourceConfiguration;
   server: ServerConfiguration;
   swagger: SwaggerConfiguration;
+};
+
+export type CacheConfiguration = {
+  connectionUrl: string;
+  url: {
+    prefix: string;
+    ttlSeconds: number;
+  };
 };
 
 export type DataSourceConfiguration = {

@@ -10,6 +10,7 @@
 [![Express](https://img.shields.io/badge/Express.js-5.x-black?logo=express)](https://expressjs.com/)
 [![TypeORM](https://img.shields.io/badge/TypeORM-ORM-red?logo=typeorm)](https://typeorm.io/)
 [![MySQL](https://img.shields.io/badge/MySQL-DB-4479A1?logo=mysql)](https://www.mysql.com/)
+[![Redis](https://img.shields.io/badge/Redis-Caching-DC382D?logo=redis)](https://redis.io/)
 [![Swagger](https://img.shields.io/badge/Swagger-UI-brightgreen?logo=swagger)](https://swagger.io/)
 [![Jest](https://img.shields.io/badge/Tested%20with-Jest-99425b?logo=jest)](https://jestjs.io/)
 [![Testcontainers](https://img.shields.io/badge/Testcontainers-Integration--Testing-green?logo=docker)](https://testcontainers.com/)
@@ -39,6 +40,7 @@ Features include:
 ├── .husky/
 ├── .vscode/                # Debuggers and workspace configuration.
 ├── src/
+|   ├── cache/              # Cache functions.
 |   ├── controllers/        # Endpoint logic.
 |   ├── errors/             # Custom error classes.
 |   ├── middlewares/        # Auth, error handling, swagger auth.
@@ -49,6 +51,7 @@ Features include:
 |   ├── types/              # Data structure definitions.
 |   ├── utils/              # Reusable functions.
 |   ├── app.ts              # Express app configuration.
+|   ├── cache.ts            # Cache configuration.
 |   ├── configuration.ts    # .env configuration entry point.
 |   ├── data-source.ts      # Typeorm configuration.
 |   ├── server.ts           # Entry point.
@@ -102,6 +105,12 @@ Log into the container and create the database:
 ```bash
 $ docker exec -it <CONTAINER ID> mysql -uroot -proot
 $ CREATE DATABASE nodeurlshortener;
+```
+
+Also if you want to use a cache for performance, make sure you have a Redis database up and running. With Docker you should do:
+
+```bash
+docker run -d --name redis -p 6379:6379 redis
 ```
 
 Start the server:

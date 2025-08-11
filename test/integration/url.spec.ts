@@ -34,7 +34,7 @@ describe('Url', () => {
     let urlRepository: Repository<Url>;
 
     beforeEach(async () => {
-      urlRepository = context.dataSource.getRepository(Url);
+      urlRepository = context.database.dataSource.getRepository(Url);
       await urlRepository.save({
         id: 1,
         url: 'https://github.com/cristiancosta/node-ts-url-shortener'
@@ -82,7 +82,7 @@ describe('Url', () => {
     let urlRepository: Repository<Url>;
 
     beforeEach(async () => {
-      urlRepository = context.dataSource.getRepository(Url);
+      urlRepository = context.database.dataSource.getRepository(Url);
       await urlRepository.save({
         id: 414,
         url: 'https://github.com/cristiancosta/node-ts-url-shortener'

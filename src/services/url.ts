@@ -8,7 +8,7 @@ import { NotFoundError } from '../errors/not-found';
 import {
   ShortenUrlInputDto,
   ShortenUrlOutputDto,
-  UrlDto,
+  UrlCache,
   UrlRepository,
   UrlService
 } from '../types/url';
@@ -16,7 +16,10 @@ import {
 // Utils.
 import { decodeBase62, encodeBase62 } from '../utils/base62';
 
-export const urlService = (urlRepository: UrlRepository): UrlService => {
+export const urlService = (
+  urlRepository: UrlRepository,
+  urlCache: UrlCache
+): UrlService => {
   const { host, port } = configuration.server;
 
   const shortenUrl = async (
@@ -31,12 +34,19 @@ export const urlService = (urlRepository: UrlRepository): UrlService => {
     return { shortUrl: `${host}:${port}/${encodeBase62(urlDto.id)}` };
   };
 
-  const getUrlByEncodedId = async (encodedId: string): Promise<UrlDto> => {
+  const getUrlByEncodedId = async (encodedId: string): Promise<string> => {
+    const url = await urlCache.getUrlByEncodedId(encodedId);
+    if (url) {
+      return url;
+    }
+
     const urlDto = await urlRepository.getById(decodeBase62(encodedId));
     if (!urlDto) {
       throw new NotFoundError('URL_NOT_FOUND');
     }
-    return urlDto;
+
+    await urlCache.setUrlToEncodedId(encodedId, urlDto.url);
+    return urlDto.url;
   };
 
   return {

@@ -35,7 +35,7 @@ describe('Health', () => {
     });
 
     it('Should return 200 status code and with healthy status and not-connected database information', async () => {
-      await context.dataSource.destroy();
+      await context.database.dataSource.destroy();
       const response = await request(context.app).get('/health');
       const body = response.body as GetHealthInfoResponse;
 

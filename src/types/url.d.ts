@@ -1,5 +1,10 @@
 import { Request, Response } from 'express';
 
+export type UrlCache = {
+  getUrlByEncodedId: (encodedId: string) => Promise<string | null>;
+  setUrlToEncodedId: (encodedId: string, url: string) => Promise<void>;
+};
+
 export type UrlRepository = {
   getById: (id: number) => Promise<UrlDto | null>;
   getByUrl: (url: string) => Promise<UrlDto | null>;
@@ -8,7 +13,7 @@ export type UrlRepository = {
 
 export type UrlService = {
   shortenUrl: (dto: ShortenUrlInputDto) => Promise<ShortenUrlOutputDto>;
-  getUrlByEncodedId: (encodedId: string) => Promise<UrlDto>;
+  getUrlByEncodedId: (encodedId: string) => Promise<string>;
 };
 
 export type UrlController = {
