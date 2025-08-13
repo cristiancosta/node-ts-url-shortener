@@ -25,9 +25,9 @@
   "author": "Cristian Costa <cristiancosta1991@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cristiancosta/node-ts-shortener/issues"
+    "url": "https://github.com/cristiancosta/node-ts-url-shortener/issues"
   },
-  "homepage": "https://github.com/cristiancosta/node-ts-shortener#readme",
+  "homepage": "https://github.com/cristiancosta/node-ts-url-shortener#readme",
   "dependencies": {
     "dotenv": "^17.2.1",
     "express": "^4.18.2",
